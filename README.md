@@ -1,20 +1,14 @@
-# maxkaemmerer/composer-package-template
-[![Travis branch](https://img.shields.io/travis/maxkaemmerer/composer-package-template/master.svg?style=flat-square)](https://travis-ci.org/maxkaemmerer/composer-package-template)
-[![Coveralls github](https://img.shields.io/coveralls/maxkaemmerer/composer-package-template/master.svg?style=flat-square&branch=master)](https://coveralls.io/github/maxkaemmerer/composer-package-template?branch=master)
-[![PHP from Packagist](https://img.shields.io/packagist/php-v/maxkaemmerer/composer-package-template.svg?style=flat-square)](https://packagist.org/packages/maxkaemmerer/composer-package-template)
-[![Packagist](https://img.shields.io/packagist/v/maxkaemmerer/composer-package-template.svg?style=flat-square)](https://packagist.org/packages/maxkaemmerer/composer-package-template)
-[![Packagist](https://img.shields.io/packagist/l/maxkaemmerer/composer-package-template.svg?style=flat-square)](https://packagist.org/packages/maxkaemmerer/composer-package-template)
+# maxkaemmerer/messaging-symfony-bridge
 
-This is a composer package template.
-It's purpose is to quickly be able to start creating new composer packages, while taking care of some of the boilerplate setup.
+This is a bridge providing DI for maxkaemmerer/events and maxkaemmerer/command in symfony.
 
- services.yml
- 
-    MaxKaemmerer\Commands\CommandBus:
-        class: 'MaxKaemmerer\Commands\Implementations\SimpleCommandBus'
+Just register the needed compiler passes in your symfony Kernel as seen below.
 
-    MaxKaemmerer\Events\EventCourier:
-        class: 'MaxKaemmerer\Events\Implementations\SimpleEventCourier'
+``CommandBus`` and ``EventCourier`` are automatically registered as services.
+
+Every symfony service implementing ``CommandHandler`` or ``EventSubscriber`` get automatically registered in the ``EventCourier`` or ``CommandBus``.
+
+So the only thing you need to do is start dispatching commands and events implementing the corresponding interfaces ``Command`` and ``Event``, as seen in the documentation of [maxkaemmerer/events](https://github.com/maxkaemmerer/events) and [maxkaemmerer/commands](https://github.com/maxkaemmerer/commands). ;)
  
  Symfony Kernel:
  
@@ -42,3 +36,5 @@ It's purpose is to quickly be able to start creating new composer packages, whil
         // ...
         
      }
+
+More detailed examples might follow.
